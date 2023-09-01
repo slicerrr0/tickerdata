@@ -4,7 +4,7 @@ import pandas_ta as ta
 from datetime import datetime, timedelta
 
 class StockAnalyzer:
-    def __init__(self, symbol):
+    def __init__(self, symbol: str):
         self.symbol = symbol.upper()
         self.ticker = yf.Ticker(self.symbol)
 
@@ -28,9 +28,9 @@ class StockAnalyzer:
         todays_data = self.ticker.history(period='1d')
         return todays_data['Open'][0]
 
-    def get_sma(self, len):
-        data = self.get_data(len)
-        sma = ta.sma(data["Close"], length=len)
+    def get_sma(self, length: int):
+        data = self.get_data(length)
+        sma = ta.sma(data["Close"], length=length)
         data = data.assign(SMA = sma)
         return data.iloc[-1]['SMA']
     
